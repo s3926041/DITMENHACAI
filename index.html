@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener("orientationchange", function(event){
+            switch(window.orientation) 
+            {  
+                case -90: case 90:
+                    /* Device is in landscape mode */
+                    break; 
+                default:
+                    /* Device is in portrait mode */
+            }
+        });
+        </script>
+    <title>DIT ME TAI XIU </title>
+</head>
+<body>
+        <section class="nav-bar">
+            <div class="logo">
+                <h1>DITMETAIXIU</h1>
+
+            </div>
+        </section>
+
+        <section class="play">
+                <div class="play-item">
+             
+                        <h1>TÀI</h1>
+              
+
+                    <div class="bet-section">
+                        <div id="decide-bet-tai">
+                            <button>
+                                <h1>Đặt cược</h1>
+                            </button>
+                        </div>
+
+                        <div id="amount-tai-off">
+                            <ul>
+                                <li>
+                                    <div class = "amount"><button>1k</button></div>
+                                </li>
+                                <li>
+                                    <div class = "amount"><button>10k</button></div>
+                                </li>
+                                <li>
+                                    <div class = "amount"><button>50k</button></div>
+                                </li>
+                                <li>
+                                    <div class = "amount"><button>100k</button></div>
+                                </li>
+                                <li>
+                                    <div class = "amount"><button>500k</button></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="final-amount">
+                            <span id="final-amount-tai"></span>
+                        </div>
+                        <div id="confirm-tai-off">
+                            <button>
+                                <h1>Xác nhận</h1>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <div class="play-item" >
+                <h1 id="countdown"></h1>
+                <img id="draggable" src="Dice/1.png" alt="">
+                <script>
+                    $( function() {
+                      $( "#draggable" ).draggable();
+                    } );
+                    </script>
+                <script src="app.js"></script>
+             
+            </div>
+            <div class="play-item">
+                
+                  <h1>XỈU</h1>
+                
+                <div class="bet-section">
+                    <div id="decide-bet-xiu">
+                        <button >
+                            <h1>Đặt cược</h1>
+                        </button>
+                        <script>
+                          document.getElementById("decide-bet-xiu").addEventListener("click", change_xiu);  
+                        </script>
+                    </div>
+
+                    <div id="amount-xiu-off">
+                        <ul>
+                            <li>
+                                <div class = "amount"><button>1k</button></div>
+                            </li>
+                            <li>
+                                <div class = "amount"><button>10k</button></div>
+                            </li>
+                            <li>
+                                <div class = "amount"><button>50k</button></div>
+                            </li>
+                            <li>
+                                <div class = "amount"><button>100k</button></div>
+                            </li>
+                            <li>
+                                <div class = "amount"><button>500k</button></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="final-amount">
+                        <span id="final-amount-xiu"></span>
+                    </div>
+                    <div id="confirm-xiu-off">
+                        <button>
+                            <h1>Xác nhận</h1>
+                        </button>
+                    </div>
+                </div>
+              
+            </div>
+           
+            
+        </section>
+
+</body>
+</html>

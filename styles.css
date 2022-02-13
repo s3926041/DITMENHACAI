@@ -1,0 +1,166 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(165, 136, 136);
+   font-family: 'Roboto Serif', sans-serif;
+}
+ul {
+    list-style-type: none;
+}
+section .nav-bar{
+    
+    position: fixed;
+    min-height: 10vh;
+    
+}
+/* LOGO */
+.logo{
+    font-size:5vh;
+    color:rgb(0, 0, 0);
+    text-align: center;
+    font-family: 'Roboto Serif', sans-serif;
+    font-style: italic;
+    font-weight: 0;
+}
+/* play section */
+.play{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10vh 10vw;
+    min-height: 50vh;
+    background-color: rgb(182, 159, 116);
+    /* opacity: 0.5; */
+    border-radius: 10rem;
+
+}
+
+.play-item{
+    text-align: center;
+    font-size:3vw;
+    margin: 0 3vw;
+    position: relative;
+    width: 20vw;
+    height: 20vw;
+}
+.play-item img{
+    width: 5vw;
+    height: 5vw;
+}
+.play-item button{
+    
+    height: fit-content;
+    font-size:3vw;
+    /* background-color: transparent;
+    border: none; */
+}
+#countdown-off{
+    display: none;
+}
+#decide-bet-tai button, #decide-bet-xiu button {
+    height: 3vw;
+}
+#decide-bet-tai button h1, #decide-bet-xiu button h1{
+    font-size:1.5vw;
+}
+#decide-bet-xiu-off,#decide-bet-tai-off{
+    display: none;
+}
+
+
+#amount-tai-off , #amount-xiu-off{
+    display: none;
+}
+#amount-tai-on ul, #amount-xiu-on ul{
+    margin:0;
+    padding:0;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+li{
+    width: 18%;
+}
+
+
+.amount button{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size:1vw;
+}
+
+
+
+#amount-tai ul li , #amount-xiu ul li{
+    border: 2px solid rgb(0, 0, 0);
+    width: 3vw;
+}
+
+#confirm-tai-off, #confirm-xiu-off{
+    display: none;
+}
+#confirm-tai-on button, #confirm-xiu-on button{
+    margin:0;
+    padding:0;
+    width: 60%;
+    font-size: 2vw;
+    border: 3px solid;
+    
+
+}
+
+#confirm-tai-on h1, #confirm-xiu-on h1{
+    text-align: center;
+    font-size: 50%;
+
+}
+
+
+
+/* From cssbuttons.io */
+/* From cssbuttons.io by @Custyyyy */
+button {
+    align-items: center;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.2) 0 2px 4px,rgba(45, 35, 66, 0.15) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono",monospace;
+ 
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 18px;
+   }
+   
+   button:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+   }
+   
+   button:hover {
+    box-shadow: rgba(45, 35, 66, 0.3) 0 4px 8px, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+   }
+   
+   button:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+   }
+/* **************** */
