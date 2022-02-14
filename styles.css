@@ -27,8 +27,8 @@ section .nav-bar{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10vh 10vw;
-    min-height: 50vh;
+    margin: 0 10vw;
+    min-height: 60vh;
     background-color: rgb(182, 159, 116);
     /* opacity: 0.5; */
     border-radius: 10rem;
@@ -43,12 +43,15 @@ section .nav-bar{
     width: 20vw;
     height: 20vw;
 }
+.play-item h1 ,.play-item p{
+    margin:0;
+}
 .play-item img{
     width: 5vw;
     height: 5vw;
 }
 .play-item button{
-    
+    margin: 5vh;
     height: fit-content;
     font-size:3vw;
     /* background-color: transparent;
@@ -63,7 +66,7 @@ section .nav-bar{
 #decide-bet-tai button h1, #decide-bet-xiu button h1{
     font-size:1.5vw;
 }
-#decide-bet-xiu-off,#decide-bet-tai-off{
+#decide-bet-xiu-off, #decide-bet-tai-off{
     display: none;
 }
 
@@ -96,6 +99,14 @@ li{
     border: 2px solid rgb(0, 0, 0);
     width: 3vw;
 }
+
+#final-amount-tai-off , #final-amount-xiu-off{
+    display: none;
+}
+span #final-amount-tai-on ,span #final-amount-xiu-on{
+    font-size: 0;
+}
+
 
 #confirm-tai-off, #confirm-xiu-off{
     display: none;
