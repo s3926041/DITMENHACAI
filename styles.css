@@ -47,8 +47,8 @@ section .nav-bar{
     margin:0;
 }
 .play-item img{
-    width: 5vw;
-    height: 5vw;
+    width: 13vw;
+    height: 13vw;
 }
 .play-item button{
     margin: 5vh;
