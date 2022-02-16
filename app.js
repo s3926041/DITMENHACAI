@@ -3,7 +3,7 @@ let dices = document.querySelectorAll(".dice");
 var rolled = false;
 
 var result;
-var time = 30, duringroll_time = time;
+var time = 10, duringroll_time = time;
 // var iscountdown_on = true;
 var datcuoctai_using = false, datcuocxiu_using = false;
 var decide_bet_using = false;
@@ -81,8 +81,8 @@ function loop(){
             //reset time
             // iscountdown_on = true;
             // document.getElementById("countdown").id = "countdown-on";
-            time = 30;
-            duringroll_time = 30;
+            time = 10;
+            duringroll_time = 10;
 
             //reset nut dat cuoc
             if(datcuoctai_using){
@@ -110,9 +110,9 @@ function loop(){
                 }
                 check_for_confirm = -1;
             }
+            //update money
+           
 
-            
-            
         }
     }
     
@@ -172,11 +172,11 @@ function confirm(){
                         count = 0;
                         var fivesec = setInterval(function(){
                             count++;
-                            if(count==3){
+                            if(count==1){
                                 document.getElementById("pop-up-tai-on").id = "pop-up-tai";
                                 clearInterval(fivesec);
                             }
-                        },1000)
+                        },500)
                     }
                     else{
                     final_tai += curbet_player_tai;
@@ -198,11 +198,11 @@ function confirm(){
                         count = 0;
                         var fivesec = setInterval(function(){
                             count++;
-                            if(count==3){
+                            if(count==1){
                                 document.getElementById("pop-up-xiu-on").id = "pop-up-xiu";
                                 clearInterval(fivesec);
                             }
-                        },1000)
+                        },500)
                     }
                     else{
                     final_xiu += curbet_player_xiu;
@@ -240,7 +240,7 @@ function bet_levels_func(){
     Array.from(bet_levels).forEach(function(bet_level){
 
         bet_level.addEventListener("click",function(){
-            if(time >0){
+            
                 if(datcuoctai_using){
                     curbet_player_tai += parseInt(bet_level.id,10)*1000;
                     if(curbet_player_tai > player_money)
@@ -253,7 +253,7 @@ function bet_levels_func(){
                         curbet_player_xiu = player_money;
                     document.getElementById("final-amount-xiu-on").innerHTML = curbet_player_xiu;
                 }
-            }
+            
             
         })
     })
@@ -284,6 +284,7 @@ function roll(){
     dices.forEach(function(dice){
         dice.classList.add("shake");
     });
+    
     setTimeout(function(){
         dices.forEach(function(dice){
             dice.classList.remove("shake");
@@ -308,6 +309,7 @@ function roll(){
                 document.getElementById("player-money").innerHTML =player_money;
             }
         }
+        console.log(result);
     },2000);
-
+   
 }
