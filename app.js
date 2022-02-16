@@ -85,12 +85,12 @@ function loop(){
             duringroll_time = 10;
 
             //reset nut dat cuoc
-            if(datcuoctai_using){
-                reset_tai();
-            }
-            if(datcuocxiu_using){
-                reset_xiu();
-            }
+            // if(datcuoctai_using){
+            //     reset_tai();
+            // }
+            // if(datcuocxiu_using){
+            //     reset_xiu();
+            // }
 
             //reset random bet nguoi choi
             curbet_tai = 0;
