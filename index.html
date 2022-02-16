@@ -8,9 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    
+ 
     <script>
         document.addEventListener("orientationchange", function(event){
             switch(window.orientation) 
@@ -26,159 +27,90 @@
     <title>DIT ME TAI XIU </title>
 </head>
 <body>
-        <section class="nav-bar">
-            <div class="logo">
-                <h1>DITMETAIXIU</h1>
 
-            </div>
-        </section>
+ 
 
-        <section class="play">
-                <div class="play-item">
-             
-                        <h1>TÀI</h1>
+        <section class="play draggable" >
+                
+                    <div class="play-item">
+                        <h1 class="down" id ="blink-me-tai">TÀI</h1>
                         <p id="curbet-tai">0</p>
-
                     <div class="bet-section">
                         <div id="decide-bet-tai">
-                            <button>
+                            <button class="bet" id ="bet-tai">
                                 <h1>Đặt cược</h1>
                             </button>
-            
                         </div>
-
-                        <div id="amount-tai-off">
-                            <ul>
-                                <li >
-                                    <div class = "amount"><button id="1k-tai">1k</button></div>
-                                </li>
-                                <li >
-                                    <div class = "amount"><button id="10k-tai">10k</button></div>
-                                </li>
-                                <li >
-                                    <div class = "amount"><button id="50k-tai">50k</button></div>
-                                </li>
-                                <li >
-                                    <div class = "amount"><button id="100k-tai">100k</button></div>
-                                </li>
-                                <li >
-                                    <div class = "amount"><button id="500k-tai">500k</button></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <script>
-                            var tai_1 =  document.getElementById("1k-tai").addEventListener("click",function(){
-                                curbet_tai_player += 1*1000;
-                                document.getElementById("final-amount-tai-on").innerHTML = curbet_tai_player;
-                            });
-                            var tai_10 =  document.getElementById("10k-tai").addEventListener("click",function(){
-                                curbet_tai_player += 10*1000;
-                                document.getElementById("final-amount-tai-on").innerHTML = curbet_tai_player;
-                            });
-                            var tai_50 =  document.getElementById("100k-tai").addEventListener("click",function(){
-                                curbet_tai_player += 100*1000;
-                                document.getElementById("final-amount-tai-on").innerHTML = curbet_tai_player;
-                            });
-                            var tai_100 =  document.getElementById("50k-tai").addEventListener("click",function(){
-                                curbet_tai_player += 50*1000;
-                                document.getElementById("final-amount-tai-on").innerHTML = curbet_tai_player;
-                            });
-                            var tai_500 = document.getElementById("500k-tai").addEventListener("click",function(){
-                                curbet_tai_player += 500*1000;
-                                document.getElementById("final-amount-tai-on").innerHTML = curbet_tai_player;
-                            });
-                        </script>
                         <div class="final-amount">
-                            <span id="final-amount-tai-off">0</span>
+                            <span id="final-amount-tai">0</span>
                         </div>
-                        <div id="confirm-tai-off">
-                            <button>
+                        <div class="btn-container">
+                            <button class="confirm" class = "huy" id="confirm-tai">
                                 <h1>Xác nhận</h1>
                             </button>
+                            <button class = "huy" id="huy-tai">
+                                <h1>Hủy</h1>
+                            </button>
                         </div>
+                        <div id="confirm-bet-tai">0</div>
+                        <div id="pop-up-tai">Bạn đã đặt bên xỉu</div>
                     </div>
                 </div>
             <div class="play-item" >
-                <h1 id="countdown"></h1>
-
-
-                <img id="draggable" src="Dice/mam.png" alt="">
-                <script>
-                    $( function() {
-                      $( "#draggable" ).draggable();
-                    } );
-                    </script>
-                <script src="app.js"></script>
-             
+                <h1 id="countdown-on">0</h1>
+                <img class="draggable" id="mam" src="Dice/mam.png" alt="">
+                <div class="dice-container">
+                    
+                        <img src="Dice/1.png" alt="" class="dice" id="dice-1">
+                        <div class="sec-container">
+                            <img src="Dice/1.png" alt="" class="dice" id="dice-2">
+                            <img src="Dice/1.png" alt="" class="dice" id="dice-3">
+                        </div>
+                        
+                   
+                </div>
+                <div class="bets-level">
+                    <button class ="bet-level" id="1">1k</button>
+                    <button class ="bet-level" id="10">10k</button>
+                    <button class ="bet-level" id="50">50k</button>
+                    <button class ="bet-level" id="100">100k</button>
+                    <button class ="bet-level" id="500">500k</button>
+                </div>
+                <div id="pop-up-on" class="blink-me"></div>
             </div>
             <div class="play-item">
                 
-                <h1>XỈU</h1>
+                <h1 class="down"id ="blink-me-xiu">XỈU</h1>
                 <p id="curbet-xiu">0</p>
                 <div class="bet-section">
                     <div id="decide-bet-xiu">
-                        <button >
+                        <button class="bet" id ="bet-xiu">
                             <h1>Đặt cược</h1>
                         </button>
-                        <script>
-                          document.getElementById("decide-bet-xiu").addEventListener("click", change_xiu);  
-                        </script>
                     </div>
-
-                    <div id="amount-xiu-off">
-                        <ul>
-                        <li>
-                            <div class = "amount"><button id="1k-xiu">1k</button></div>
-                        </li>
-                        <li >
-                            <div class = "amount"><button id="10k-xiu">10k</button></div>
-                        </li>
-                        <li >
-                            <div class = "amount"><button id="50k-xiu">50k</button></div>
-                        </li>
-                        <li >
-                            <div class = "amount"><button id="100k-xiu">100k</button></div>
-                        </li>
-                        <li >
-                            <div class = "amount"><button id="500k-xiu">500k</button></div>
-                            </li>
-                        </ul>
-                    </div>
-                    <script> 
-                    var xiu_1 =  document.getElementById("1k-xiu").addEventListener("click",function(){
-                        curbet_xiu_player += 1000;
-                        document.getElementById("final-amount-xiu-on").innerHTML = curbet_xiu_player;
-                    });
-                    var xiu_10 =  document.getElementById("10k-xiu").addEventListener("click",function(){
-                        curbet_xiu_player += 10000;
-                        document.getElementById("final-amount-xiu-on").innerHTML = curbet_xiu_player;
-                    });
-                    var xiu_50 =  document.getElementById("100k-xiu").addEventListener("click",function(){
-                        curbet_xiu_player += 100000;
-                        document.getElementById("final-amount-xiu-on").innerHTML = curbet_xiu_player;
-                    });
-                    var xiu_100 =  document.getElementById("50k-xiu").addEventListener("click",function(){
-                        curbet_xiu_player += 50000;
-                        document.getElementById("final-amount-xiu-on").innerHTML = curbet_xiu_player;
-                    });
-                    var xiu_500 = document.getElementById("500k-xiu").addEventListener("click",function(){
-                        curbet_xiu_player += 500000;
-                        document.getElementById("final-amount-xiu-on").innerHTML = curbet_xiu_player;
-                    });</script>
                     <div class="final-amount">
-                        <span id="final-amount-xiu-off">0</span>
+                        <span id="final-amount-xiu">0</span>
                     </div>
-                    <div id="confirm-xiu-off">
-                        <button>
+                    <div class="btn-container">
+                        <button class="confirm" class = "huy" id="confirm-xiu">
                             <h1>Xác nhận</h1>
                         </button>
+                        <button class ="huy" id="huy-xiu">
+                            <h1>Hủy</h1>
+                        </button>
                     </div>
+                    <div id="confirm-bet-xiu">0</div>
+                    <div id="pop-up-xiu">Bạn đã đặt bên tài</div>
                 </div>
-              
             </div>
-           
-            
         </section>
-        <script src="app.js"></script>
+        <div class="player-money" id="player-money">200000</div>
+        
 </body>
 </html>
+<script>
+    $( function() {
+      $( ".draggable" ).draggable();
+    } );
+</script>
+<script src="app.js"></script>

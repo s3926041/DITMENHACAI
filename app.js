@@ -1,51 +1,123 @@
-let time = 5;
-let time1 = time;
-var sum_tai = 0;
-var sum_xiu = 0;
-var not0 = true;
-var curbet_tai_player = 0;
-var curbet_xiu_player = 0;
-const countdownvar = document.getElementById('countdown');
+let dices_img = ["Dice/1.png","Dice/2.png","Dice/3.png","Dice/4.png","Dice/5.png","Dice/6.png"];
+let dices = document.querySelectorAll(".dice");
+var rolled = false;
 
-var start_clock = setInterval(updatecountdown,1000);
+var result;
+var time = 30, duringroll_time = time;
+// var iscountdown_on = true;
+var datcuoctai_using = false, datcuocxiu_using = false;
+var decide_bet_using = false;
+const bets= document.querySelectorAll(".bet"),
+confirms = document.querySelectorAll(".confirm"),
+huys = document.querySelectorAll(".huy"),
+bet_levels = document.querySelectorAll(".bet-level");
+var player_money = 200000;
+
+var curbet_tai = 0, curbet_xiu = 0;
+var curbet_player_tai = 0, curbet_player_xiu = 0;
+var final_tai = 0, final_xiu = 0;
 
 
-function updatecountdown() {
-    countdownvar.innerHTML = time;
-    if(not0){
-        time1 = time;
-    }
-    if (time >0){
-        console.log(time);
+var check_for_confirm = -1;
+
+
+var clock = setInterval(loop,1000);
+decide_bet();
+bet_levels_func();
+confirm();
+huy();
+
+
+function loop(){
+    if(time>=0){
+        // if(!decide_bet_using){
+        //     decide_bet_using = true;
+        //     decide_bet();
+        // }
+        document.getElementById("pop-up-on").innerHTML = "Bắt đầu đặt cược";
+        document.getElementById("countdown-on").innerHTML = time;
         time--;
+        duringroll_time = time;
 
-        sum_tai += randomRangeWithIncrements(10000, 10000000,1000);
-        document.getElementById("curbet-tai").innerHTML = sum_tai;
-
-        sum_xiu += randomRangeWithIncrements(10000, 10000000,1000);
-        document.getElementById("curbet-xiu").innerHTML = sum_xiu;
-        
-    } else {
-        not0 = false;
-        time1--;
-        console.log(time1);
-        if (time1 <= -5){
-            if (sum_tai > sum_xiu){
-                document.getElementById("curbet-tai").innerHTML = sum_xiu;
-            }
-            else{
-                document.getElementById("curbet-xiu").innerHTML = sum_tai;
-            }
-            document.getElementById("countdown").id = "countdown-off";
-            clearInterval(start_clock);
-        }
-       
+        //random bet cua nguoi choi
+        curbet_tai += ran(1000,5000000,1000);
+        curbet_xiu += ran(1000,5000000,1000);
+        document.getElementById("curbet-tai").innerHTML = curbet_tai;
+        document.getElementById("curbet-xiu").innerHTML = curbet_xiu;
     }
+    else{
+        //pop-up
+        document.getElementById("pop-up-on").innerHTML = "Trả tiền cân cửa";
+        //thoi gian roll dice
+        duringroll_time--;
+        //can cua
+        if(curbet_tai>curbet_xiu){
+            curbet_tai = curbet_xiu;
+        }
+        else{
+            curbet_xiu = curbet_tai;
+        }
+        document.getElementById("curbet-tai").innerHTML = curbet_tai;
+        document.getElementById("curbet-xiu").innerHTML = curbet_xiu;
+
+        // khong cho dat nua
+        if(decide_bet_using){
+            decide_bet_using = false;
+        }
+
+        //check countdown clock va tat no di
+        // if(iscountdown_on){
+        //     document.getElementById("countdown-on").id = "countdown";
+        //     iscountdown_on = false;
+        // }
+        if(!rolled){
+            roll();
+            rolled = true;
+        }
+        
+        //reset phien moi
+        if(duringroll_time == -10){
+            rolled = false;
+            //reset time
+            // iscountdown_on = true;
+            // document.getElementById("countdown").id = "countdown-on";
+            time = 30;
+            duringroll_time = 30;
+
+            //reset nut dat cuoc
+            if(datcuoctai_using){
+                reset_tai();
+            }
+            if(datcuocxiu_using){
+                reset_xiu();
+            }
+
+            //reset random bet nguoi choi
+            curbet_tai = 0;
+            curbet_xiu = 0;
+            document.getElementById("curbet-tai").innerHTML = curbet_tai;
+            document.getElementById("curbet-xiu").innerHTML = curbet_xiu;
+            final_tai = 0;
+            final_xiu =0;
+            
+            if(check_for_confirm != -1){
+                if(check_for_confirm == 0){
+                    document.getElementById("confirm-bet-tai-on").id= "confirm-bet-tai";
+                    
+                }
+                else{
+                    document.getElementById("confirm-bet-xiu-on").id= "confirm-bet-xiu";
+                }
+                check_for_confirm = -1;
+            }
+
+            
+            
+        }
+    }
+    
 }
-
-
-
-function randomRangeWithIncrements(min, max, inc) {
+function ran(min, max, inc) {
     min = min || 0;
     inc = inc || 1;
     if(!max) { return new Error('need to define a max');}
@@ -53,31 +125,189 @@ function randomRangeWithIncrements(min, max, inc) {
     return Math.floor(Math.random() * (max - min) / inc) * inc + min;
 }
 
-document.getElementById("decide-bet-tai").addEventListener("click",change_tai);  
-function change_tai() {
-    curbet_xiu_player = 0;
-    document.getElementById("decide-bet-tai").id = "decide-bet-tai-off";
-    document.getElementById("amount-tai-off").id = "amount-tai-on";
-    document.getElementById("confirm-tai-off").id = "confirm-tai-on";
-    document.getElementById("final-amount-tai-off").id = "final-amount-tai-on"
+
+function decide_bet(){
+    Array.from(bets).forEach(function(bet){
+        
+        if(bet.id =="bet-tai"){
+            bet.addEventListener("click",function(){
+            datcuoctai_using = true;
+            if(datcuocxiu_using){
+                reset_xiu();
+                
+            }
+            document.getElementById("decide-bet-tai").id += "-off"
+            document.getElementById("final-amount-tai").id += "-on";
+            document.getElementById("confirm-tai").id +="-on";
+            document.getElementById("huy-tai").id +="-on";
+            });
+        }
+        if(bet.id =="bet-xiu"){
+            
+            bet.addEventListener("click",function(){
+            datcuocxiu_using = true;
+            if(datcuoctai_using){
+                reset_tai();
+                
+            }
+            document.getElementById("decide-bet-xiu").id +="-off"
+            document.getElementById("final-amount-xiu").id += "-on";
+            document.getElementById("confirm-xiu").id +="-on";
+            document.getElementById("huy-xiu").id +="-on";
+            });
+        }
+    });
     
-    document.getElementById("decide-bet-xiu-off").id = "decide-bet-xiu";
-    document.getElementById("amount-xiu-on").id = "amount-xiu-off";
-    document.getElementById("confirm-xiu-on").id = "confirm-xiu-off";
-    document.getElementById("final-amount-xiu-on").id = "final-amount-xiu-off";
-  }
+}
 
-document.getElementById("decide-bet-xiu").addEventListener("click", change_xiu);  
-function change_xiu() {
-    curbet_tai_player =0;
-    document.getElementById("decide-bet-xiu").id = "decide-bet-xiu-off";
-    document.getElementById("amount-xiu-off").id = "amount-xiu-on";
-    document.getElementById("confirm-xiu-off").id = "confirm-xiu-on";
-    document.getElementById("final-amount-xiu-off").id = "final-amount-xiu-on";
+var count;
 
-    document.getElementById("decide-bet-tai-off").id = "decide-bet-tai";
-    document.getElementById("amount-tai-on").id = "amount-tai-off";
-    document.getElementById("confirm-tai-on").id = "confirm-tai-off";
-    document.getElementById("final-amount-tai-on").id = "final-amount-tai-off"
-  }
-  
+function confirm(){
+    Array.from(confirms).forEach(function(confirm){
+        confirm.addEventListener("click",function(){
+            if(time>0){
+                if(datcuoctai_using && curbet_player_tai>0 ){
+                    if(check_for_confirm == 1){
+                        document.getElementById("pop-up-tai").id += "-on";
+                        count = 0;
+                        var fivesec = setInterval(function(){
+                            count++;
+                            if(count==3){
+                                document.getElementById("pop-up-tai-on").id = "pop-up-tai";
+                                clearInterval(fivesec);
+                            }
+                        },1000)
+                    }
+                    else{
+                    final_tai += curbet_player_tai;
+                    player_money -= curbet_player_tai;
+                    document.getElementById("player-money").innerHTML = player_money;
+                    if(check_for_confirm == -1){
+                        check_for_confirm = 0;
+                        document.getElementById("confirm-bet-tai").id+="-on";
+                    }
+                    document.getElementById("confirm-bet-tai-on").innerHTML = final_tai;
+                    curbet_player_tai = 0;
+                    document.getElementById("final-amount-tai-on").innerHTML =0 ;
+                    }
+                    
+                }
+                if(datcuocxiu_using && curbet_player_xiu>0 ){
+                    if(check_for_confirm == 0){
+                        document.getElementById("pop-up-xiu").id += "-on";
+                        count = 0;
+                        var fivesec = setInterval(function(){
+                            count++;
+                            if(count==3){
+                                document.getElementById("pop-up-xiu-on").id = "pop-up-xiu";
+                                clearInterval(fivesec);
+                            }
+                        },1000)
+                    }
+                    else{
+                    final_xiu += curbet_player_xiu;
+                    player_money -= curbet_player_xiu;
+                    document.getElementById("player-money").innerHTML = player_money;
+                    if(check_for_confirm == -1){
+                        check_for_confirm = 1;
+                        document.getElementById("confirm-bet-xiu").id+="-on";
+                    }
+                    document.getElementById("confirm-bet-xiu-on").innerHTML = final_xiu;
+                    curbet_player_xiu = 0;
+                    document.getElementById("final-amount-xiu-on").innerHTML =0 ;
+                    }
+                    
+                }
+            }
+        });
+        }
+    )}
+
+function huy(){
+    Array.from(huys).forEach(function(huy){
+       huy.addEventListener("click",function(){
+        if(huy.id=="huy-tai-on"){
+            reset_tai();
+        }
+        else{
+            reset_xiu();
+        }
+       });
+    });
+}
+
+function bet_levels_func(){
+    Array.from(bet_levels).forEach(function(bet_level){
+
+        bet_level.addEventListener("click",function(){
+            if(time >0){
+                if(datcuoctai_using){
+                    curbet_player_tai += parseInt(bet_level.id,10)*1000;
+                    if(curbet_player_tai > player_money)
+                        curbet_player_tai = player_money;
+                    document.getElementById("final-amount-tai-on").innerHTML = curbet_player_tai;
+                }
+                if(datcuocxiu_using){
+                    curbet_player_xiu += parseInt(bet_level.id,10)*1000;
+                    if(curbet_player_xiu > player_money)
+                        curbet_player_xiu = player_money;
+                    document.getElementById("final-amount-xiu-on").innerHTML = curbet_player_xiu;
+                }
+            }
+            
+        })
+    })
+
+}
+
+function reset_tai(){
+    curbet_player_tai = 0;
+    datcuoctai_using = false;
+    document.getElementById("decide-bet-tai-off").id ="decide-bet-tai";
+    document.getElementById("final-amount-tai-on").innerHTML = 0;
+    document.getElementById("final-amount-tai-on").id =  "final-amount-tai";
+    document.getElementById("confirm-tai-on").id ="confirm-tai";
+    document.getElementById("huy-tai-on").id = "huy-tai";
+}
+
+function reset_xiu(){
+    curbet_player_xiu = 0;
+    datcuocxiu_using = false;
+    document.getElementById("decide-bet-xiu-off").id ="decide-bet-xiu";
+    document.getElementById("final-amount-xiu-on").innerHTML = 0;
+    document.getElementById("final-amount-xiu-on").id =  "final-amount-xiu";
+    document.getElementById("confirm-xiu-on").id ="confirm-xiu";
+    document.getElementById("huy-xiu-on").id = "huy-xiu";
+}
+
+function roll(){
+    dices.forEach(function(dice){
+        dice.classList.add("shake");
+    });
+    setTimeout(function(){
+        dices.forEach(function(dice){
+            dice.classList.remove("shake");
+        });
+        let dice_1_value = Math.floor(Math.random()*6);
+        let dice_2_value = Math.floor(Math.random()*6);
+        let dice_3_value = Math.floor(Math.random()*6);
+        document.querySelector("#dice-1").setAttribute("src",dices_img[dice_1_value]);
+        document.querySelector("#dice-2").setAttribute("src",dices_img[dice_2_value]);
+        document.querySelector("#dice-3").setAttribute("src",dices_img[dice_3_value]);
+        result = dice_1_value+dice_2_value+dice_3_value+3;
+        if(result>10){
+            if(final_tai > 0){
+                player_money += final_tai*2;
+                document.getElementById("player-money").innerHTML =player_money;
+            }
+            
+        }
+        else{
+            if(final_xiu >0){
+                player_money += final_xiu*2;
+                document.getElementById("player-money").innerHTML =player_money;
+            }
+        }
+    },2000);
+
+}
